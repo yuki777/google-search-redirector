@@ -3,9 +3,6 @@
   "name": "日本語的検索結果画面瞬間移動拡張",
   "version": "1.0.0",
   "description": "Google検索結果が中国語の場合、日本語の結果ページへリダイレクトします",
-  "permissions": [
-    "scripting"
-  ],
   "host_permissions": [
     "*://www.google.com/*",
     "*://www.google.co.jp/*"
