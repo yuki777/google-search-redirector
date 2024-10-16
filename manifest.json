@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "description": "Google検索結果が中国語の場合、日本語の結果ページへリダイレクトします",
   "host_permissions": [
-    "*://www.google.com/*",
-    "*://www.google.co.jp/*"
+    "*://www.google.com/search*",
+    "*://www.google.co.jp/search*"
   ],
   "background": {
     "service_worker": "background.js"
