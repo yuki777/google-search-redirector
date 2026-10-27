@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "日本語的検索結果画面瞬間移動拡張",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Google検索結果が中国語の場合、日本語の結果ページへリダイレクトします",
   "host_permissions": [
     "*://www.google.com/search*",
