@@ -1,17 +1,20 @@
-function getSearchResultLinks() {
-  const linkElements = document.querySelectorAll('a');
-  return Array.from(linkElements);
+// 検索結果の本文だけを対象にする（ナビゲーションやフッターなどGoogleのUI文言を含めない）
+function getSearchResultsText() {
+  const container = document.querySelector('#search') || document.querySelector('#rso');
+  return container ? container.textContent : '';
 }
 
+// 漢字に対するかなの割合で判定する
+// 日本語の文章はかなを多く含むが、中国語はほぼ漢字のみになる
 function detectLanguage(text) {
-  const hiragana = /[\u3040-\u309F]/;
-  const katakana = /[\u30A0-\u30FF]/;
-  const kanji = /[\u4E00-\u9FFF]/;
-  const hasHiragana = hiragana.test(text);
-  const hasKatakana = katakana.test(text);
-  const hasKanji = kanji.test(text);
+  const kanaCount = (text.match(/[぀-ゟ゠-ヿ]/g) || []).length;
+  const kanjiCount = (text.match(/[一-鿿]/g) || []).length;
 
-  if (hasKanji && !hasHiragana && !hasKatakana) {
+  if (kanjiCount < 20) {
+    return null;
+  }
+
+  if (kanaCount / (kanaCount + kanjiCount) < 0.1) {
     return 'zh';
   }
 
@@ -19,12 +22,7 @@ function detectLanguage(text) {
 }
 
 function analyzeSearchResults() {
-  const linkElements = getSearchResultLinks();
-  const linkTexts = linkElements
-    .map(el => el.textContent.trim())
-    .filter(text => text.length > 0);
-  const combinedText = linkTexts.join(' ');
-  return detectLanguage(combinedText);
+  return detectLanguage(getSearchResultsText());
 }
 
 function main() {
